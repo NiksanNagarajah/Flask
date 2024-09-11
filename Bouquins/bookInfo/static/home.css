@@ -1,0 +1,94 @@
+h1 {
+    color: red;
+}
+
+/* div.sample{
+    text-align: center;
+    margin-left: 25%;
+    margin-right: 25%;
+} */
+
+.sample {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    padding: 1%;
+}
+
+.sample>a {
+    margin: 10px;
+}
+
+.sample img {
+    height: 150px;
+}
+
+main{
+    margin-top: 8em;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+main > .container {
+    padding: 60px 15px 0;
+}
+
+.book-container {
+    display: flex;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 600px;
+    margin: auto;
+    margin-top: 10%;
+    /* width: 50%; */
+}
+
+.book-image img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+}
+
+.book-details {
+    padding: 20px;
+    flex: 1;
+}
+
+.book-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.book-author, .book-price {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.book-author span, .book-price span {
+    font-weight: bold;
+}
+
+.buy-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #2980b9;
+}
