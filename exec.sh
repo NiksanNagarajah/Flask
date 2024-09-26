@@ -1,3 +1,5 @@
+#!/bin/bash                                                                     
+
 echo "Quelle site souhaitez-vous visiter ?"
 echo "1. Introduction à Flask"
 echo "2. Informations sur des bouquins"
@@ -15,9 +17,9 @@ source venv/bin/activate
 
 if [ $rep -eq 1 ]
 then
-    cd Intro
+    cd 1.IntroductionFlask
     flask run
 else
-    cd Bouquins
+    cd 2.Templates-Bootstrap
     flask run
 fi
