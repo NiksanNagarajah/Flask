@@ -8,5 +8,6 @@ pip install python-dotenv
 pip install bootstrap-flask
 pip install PyYAML
 pip install flask-sqlalchemy
+pip install flask-wtf
 
 
