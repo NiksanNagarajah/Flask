@@ -9,5 +9,7 @@ pip install bootstrap-flask
 pip install PyYAML
 pip install flask-sqlalchemy
 pip install flask-wtf
+pip install flask-login
+
 
 

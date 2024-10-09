@@ -21,3 +21,8 @@ db = SQLAlchemy(app)
 
 app.config['SECRET_KEY'] = 'c16b4688-e4ef-44df-8757-dcb88f0da0eb'
 
+from flask_login import LoginManager
+login_manager = LoginManager(app)
+
+login_manager.login_view = 'login'
+

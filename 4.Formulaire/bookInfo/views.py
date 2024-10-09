@@ -28,15 +28,16 @@ class AuthorForm(FlaskForm):
     id = HiddenField('id')
     name = StringField('Nom', validators=[DataRequired()])
 
+from flask_login import login_required
+
 @app.route("/edit/author/<int:id>")
+@login_required
 def edit_author(id):
     a = get_author(id)
     f = AuthorForm(id=a.id, name=a.name)
     return render_template(
-        "edit-author.html",
-        author=a,
-        form=f
-    )
+    "edit-author.html",
+    author=a, form=f)
 
 from flask import url_for, redirect, render_template
 from .app import db
@@ -79,6 +80,7 @@ def authors():
         )
 
 @app.route("/author/newAuthor")
+@login_required
 def newAuthor():
     id = Author.query.count() + 1
     form = AuthorForm(id=id)
@@ -95,3 +97,64 @@ def newAuthor():
         "new-author.html",
         form=form
         )
+
+
+@app.route('/add_author', methods=['GET', 'POST'])
+def add_author():
+    form = AuthorForm()
+    if form.validate_on_submit():
+        new_author = Author(name=form.name.data)
+        db.session.add(new_author)
+        db.session.commit()
+        flash('Auteur enregistré avec succès !')
+        return redirect(url_for('authors'))  # Rediriger vers la liste des auteurs
+
+    return render_template('add_author.html', form=form)
+
+from wtforms import PasswordField
+from .models import User
+from hashlib import sha256
+
+class LoginForm(FlaskForm):
+    username = StringField('Username')
+    password = PasswordField('Password')
+    next = HiddenField()
+
+    def get_authenticated_user(self):
+        user = User.query.get(self.username.data)
+        if user is None:
+            return None
+        m = sha256()
+        m.update(self.password.data.encode())
+        passwd = m.hexdigest()
+        return user if passwd == user.password else None
+
+
+from flask import request, redirect, render_template, url_for
+from flask_login import login_user
+
+@app.route("/login/", methods=["GET", "POST"])
+def login():
+    f = LoginForm()
+    
+    if not f.is_submitted():
+        f.next.data = request.args.get("next")
+    elif f.validate_on_submit():
+        user = f.get_authenticated_user()
+        if user:
+            login_user(user)
+            next_page = f.next.data or url_for("home")
+            return redirect(next_page)
+    
+    return render_template("login.html", form=f)
+
+
+
+from flask_login import logout_user
+from flask import redirect, url_for
+
+@app.route("/logout/")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+

@@ -30,4 +30,22 @@ def get_authors():
     return Author.query.all()
 
 
+from flask_login import UserMixin
+
+class User(db.Model, UserMixin):
+    username = db.Column(db.String(80), primary_key=True)
+    password = db.Column(db.String(80))
+
+    def get_id(self):
+        return self.username
+
+
+from .app import login_manager
+
+@login_manager.user_loader
+def load_user(username):
+    return User.query.get(username)
+
+
+
 
