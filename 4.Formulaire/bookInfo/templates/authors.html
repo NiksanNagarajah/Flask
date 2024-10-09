@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
-<h1>Les Auteurs</h1>
-
-<a href="{{ url_for('newAuthor') }}"><button class="add-author-button">Ajouter un auteur</button></a>
+<section class="container-title">
+    <h1>Les Auteurs</h1>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('newAuthor') }}"><button class="add-author-button">Ajouter un auteur</button></a>    
+    {% endif %}
+</section>
 
 <div class="table-container">
     <div class="table-section">
@@ -11,15 +14,19 @@
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
-                <th>Actions</th>
+                {% if current_user.is_authenticated %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
             {% for x in authors[:(authors|length // 2)] %}
             <tr>
                 <td>{{ x.id }}</td>
                 <td>{{ x.name }}</td>
-                <td>
-                    <a href="{{ url_for('edit_author', id=x.id) }}">Éditer</a>
-                </td>
+                {% if current_user.is_authenticated %}
+                    <td>
+                        <a href="{{ url_for('edit_author', id=x.id) }}">Éditer</a>
+                    </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
@@ -31,15 +38,19 @@
             <tr>
                 <th>ID</th>
                 <th>Nom</th>
-                <th>Actions</th>
+                {% if current_user.is_authenticated %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
             {% for x in authors[(authors|length // 2):] %}
             <tr>
                 <td>{{ x.id }}</td>
                 <td>{{ x.name }}</td>
-                <td>
-                    <a href="{{ url_for('edit_author', id=x.id) }}">Éditer</a>
-                </td>
+                {% if current_user.is_authenticated %}
+                    <td>
+                        <a href="{{ url_for('edit_author', id=x.id) }}">Éditer</a>
+                    </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>

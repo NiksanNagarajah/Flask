@@ -157,6 +157,11 @@ a:hover {
     text-decoration: underline;
 }
 
+.container-title {
+    display: flex;
+    justify-content: space-around;
+}
+
 .add-author-button {
     text-align: right;
     background-color: #3498db; /* Couleur de fond */
